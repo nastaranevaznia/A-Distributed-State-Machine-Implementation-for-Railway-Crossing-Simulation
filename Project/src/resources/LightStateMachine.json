@@ -1,0 +1,58 @@
+{
+  "name": "LightStateMachine",
+  "initialState": "OFF",
+  "states": [
+    {
+      "name": "OFF",
+      "onEntryActions": [
+        {
+          "type": "functionCall",
+          "functionName": "turnLightsOff",
+          "parameters": {}
+        }
+      ]
+    },
+    {
+      "name": "RED",
+      "onEntryActions": [
+        {
+          "type": "functionCall",
+          "functionName": "setLightsToRed",
+          "parameters": {}
+        }
+      ]
+    },
+    {
+      "name": "GREEN",
+      "onEntryActions": [
+        {
+          "type": "functionCall",
+          "functionName": "setLightsToGreen",
+          "parameters": {}
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "sourceState": "OFF",
+      "eventType": "approaching",
+      "targetState": "RED"
+    },
+    {
+      "sourceState": "RED",
+      "eventType": "leaving",
+      "targetState": "GREEN"
+    },
+    {
+      "sourceState": "GREEN",
+      "eventType": "resetSystem",
+      "targetState": "OFF"
+    },
+    {
+        "sourceState": "GREEN",
+        "eventType": "approaching",
+        "targetState": "RED"
+    }
+  ]
+}

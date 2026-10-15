@@ -1,0 +1,48 @@
+{
+  "name": "GateStateMachine",
+  "initialState": "UP",
+  "states": [
+    {
+      "name": "UP",
+      "onEntryActions": [
+        {
+          "type": "functionCall",
+          "functionName": "raiseGate",
+          "parameters": {}
+        }
+      ]
+    },
+    {
+      "name": "DOWN",
+      "onEntryActions": [
+        {
+          "type": "functionCall",
+          "functionName": "lowerGate",
+          "parameters": {}
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "sourceState": "UP",
+      "eventType": "approaching",
+      "targetState": "DOWN"
+    },
+    {
+      "sourceState": "DOWN",
+      "eventType": "leaving",
+      "targetState": "UP"
+    },
+    {
+        "sourceState": "DOWN",
+        "eventType": "trainPresent",
+        "targetState": "DOWN"
+    },
+    {
+        "sourceState": "UP",
+        "eventType": "trainPresent",
+        "targetState": "DOWN"
+    }
+  ]
+}

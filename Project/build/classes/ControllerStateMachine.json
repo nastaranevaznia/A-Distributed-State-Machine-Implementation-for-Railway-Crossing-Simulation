@@ -1,0 +1,85 @@
+{
+  "name": "ControllerStateMachine",
+  "initialState": "away",
+  "states": [
+    {
+      "name": "away",
+      "onEntryActions": []
+    },
+    {
+      "name": "approach",
+      "onEntryActions": [
+        {
+          "type": "eventEmission",
+          "eventType": "approaching",
+          "eventPayload": {}
+        }
+      ]
+    },
+    {
+      "name": "close",
+      "onEntryActions": []
+    },
+    {
+      "name": "present",
+      "onEntryActions": [
+            {
+               "type": "eventEmission",
+               "eventType": "trainPresent",
+               "eventPayload": {}
+            }
+        ]
+    },
+    {
+      "name": "leaving",
+      "onEntryActions": [
+        {
+          "type": "eventEmission",
+          "eventType": "leaving",
+          "eventPayload": {}
+        }
+      ]
+    },
+    {
+      "name": "left",
+      "onEntryActions": []
+    }
+  ],
+  "transitions": [
+    {
+      "sourceState": "away",
+      "eventType": "sensor_seen",
+      "targetState": "approach"
+    },
+    {
+      "sourceState": "approach",
+      "eventType": "sensor_seen",
+      "targetState": "close"
+    },
+    {
+      "sourceState": "close",
+      "eventType": "sensor_seen",
+      "targetState": "present"
+    },
+    {
+      "sourceState": "present",
+      "eventType": "sensor_seen",
+      "targetState": "away"
+    },
+    {
+      "sourceState": "present",
+      "eventType": "leaving",
+      "targetState": "leaving"
+    },
+    {
+      "sourceState": "leaving",
+      "eventType": "sensor_seen",
+      "targetState": "left"
+    },
+    {
+      "sourceState": "left",
+      "eventType": "sensor_seen",
+      "targetState": "away"
+    }
+  ]
+}
